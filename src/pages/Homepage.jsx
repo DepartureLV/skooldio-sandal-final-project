@@ -1,8 +1,33 @@
+import Navbar from "../components/Navbar/Navbar";
 import ProductCard from "../components/ProductCard";
-
+import { useEffect, useState } from "react";
 function Homepage() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [catagoriesInclude, setCatagoriesInclude] = useState([]);
+  const [categoriesExclude, setCategoriesExclude] = useState([]);
+  const BASE_URL = "https://api.storefront.wdb.skooldio.dev/";
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`${BASE_URL}products`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.data);
+        setLoading(false);
+      });
+  }, []);
+
+  let item = [];
+
+  if (products) {
+    item = products.map((item, index) => <ProductCard key={index} {...item} />);
+  }
   return (
     <>
+      <Navbar />
+
       <div className="mb-16">
         <img
           className="h-[420px] w-full object-cover"
@@ -66,7 +91,7 @@ function Homepage() {
       <div className="flex flex-col items-center px-4 font-bold mb-16">
         <p className="text-[32px]">Feature Products</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mx-auto w-full md:w-fit">
-          <ProductCard />
+          {item}
         </div>
       </div>
     </>
