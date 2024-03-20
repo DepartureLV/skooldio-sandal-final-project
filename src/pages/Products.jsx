@@ -57,12 +57,24 @@ function Products() {
         <div className="flex justify-center">
           <div className="lg:flex lg:h-fit lg:max-w-[1600px] 2xl:justify-between px-auto pt-24">
             <div className="hidden 2xl:flex lg:flex-col lg:w-[280px] lg:min-h-max text-secondary font-semibold px-4 gap-4">
-              <h1 className="font-bold">Tops</h1>
-              <p className="text-primary">Catagory</p>
-              <p>Catagory</p>
-              <p>Catagory</p>
-              <p>Catagory</p>
-              <p>Catagory</p>
+              <Accordion title="Tops">
+                <p>All items</p>
+                <p>T-shirt</p>
+                <p>Cardigans</p>
+                <p>Knitwear & Sweaters</p>
+                <p>Sweatshirts & Hoodies</p>
+                <p>Fleece</p>
+              </Accordion>
+              <Accordion title="Bottoms">{/* Content for Bottoms */}</Accordion>
+              <Accordion title="Dress & Jumpsuits">
+                {/* Content for Dress & Jumpsuits */}
+              </Accordion>
+              <Accordion title="Accessories">
+                {/* Content for Accessories */}
+              </Accordion>
+              <Accordion title="Collections">
+                {/* Content for Collections */}
+              </Accordion>
             </div>
             <div className="font-poppins flex flex-col items-center w-full lg:w-fit px-[18px]">
               <header className="lg:w-full">
