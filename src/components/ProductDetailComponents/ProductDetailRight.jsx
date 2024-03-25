@@ -73,44 +73,45 @@ const ProductDetailRight = (data) => {
     let mycartBody = [];
     mycartBody.push(addItem);
 
-    console.log("Add Item", addItem);
-    if (mycartBody.length) {
-      setuserPurhcase(mycartBody);
-      console.log(mycartBody);
+    console.log("Add Item",addItem)
+    if(mycartBody.length){
+      setuserPurhcase(mycartBody)
+      console.log(mycartBody)
 
-      let statusCode = "";
 
-      if (id === null || id === undefined || id === "") {
-        try {
-          await axios
-            .post("https://api.storefront.wdb.skooldio.dev/carts", {
-              items: mycartBody,
-            })
-            .then((res) => {
-              let data = res.data;
-              console.log("add new res", res);
-              console.log("add new cart data", data);
-              statusCode = res.status;
-              localStorage.setItem("id", data.id);
-            });
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        try {
-          axios
-            .post(`https://api.storefront.wdb.skooldio.dev/carts/${id}/items`, {
-              items: mycartBody,
-            })
-            .then((res) => {
-              let data = res.data;
-              statusCode = res.status;
-              console.log("add old cart data", data);
-              console.log("add old res", res);
-            });
-        } catch (error) {
-          console.log(error);
-        }
+    if(id === null || id === undefined || id === "" ) {
+      try {
+       await axios.post("https://api.storefront.wdb.skooldio.dev/carts",{"items":mycartBody}).then( res => {
+              let data = res.data
+              console.log("add new cart data",data)
+
+              let cartContext = {
+                id: id,
+                items:data.items
+              }
+
+              setuserPurhcase(cartContext)
+              localStorage.setItem('id',data.id)
+          })
+      } catch (error) {
+          console.log(error)
+      }
+
+    }else{
+      try {
+        axios.post(`https://api.storefront.wdb.skooldio.dev/carts/${id}/items`,{"items":mycartBody}).then( res => {
+              let data = res.data
+              console.log("add old cart data",data)
+
+              let cartContext = {
+                id: id,
+                items:data.items
+              }
+
+              setuserPurhcase(cartContext)
+          })
+      } catch (error) {
+          console.log(error)
       }
 
       if (statusCode == 200 || statusCode == 201) {
